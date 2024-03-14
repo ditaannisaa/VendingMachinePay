@@ -1,87 +1,74 @@
-import React from 'react';
-import {Image, Pressable, ScrollView, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {Alert, Image, Pressable, ScrollView, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import {CartCard} from '../../component/CartCard';
+import {withdrawal} from '../../redux/slice/balanceSlice';
+import {removeAll, removeItem} from '../../redux/slice/cartSlice';
 
 export default function Cart() {
   const dispatch = useDispatch();
+  const balanceAmount = useSelector((state: any) => state?.balance?.balance);
   const cartList = useSelector((state: any) => state.cart?.cartItems);
   // console.log(cartList);
+  const [allTotal, setAllTotal] = useState(0);
+  const totalPrice = () => {
+    let total = 0;
+    for (let i = 0; i < cartList.length; i++) {
+      total += cartList[i].quantity * cartList[i].price;
+    }
+    return total;
+  };
+
+  const handleCheckout = () => {
+    if (totalPrice() > balanceAmount) {
+      Alert.alert('Insufficient balance');
+    } else {
+      dispatch(withdrawal({total: totalPrice()}));
+      dispatch(removeAll(cartList));
+      Alert.alert('Transaction completed successfully');
+    }
+  };
+
+  // console.log(allTotal + 'initotal');
   return (
     <View
       style={{
         backgroundColor: '#F8FBFF',
         flex: 1,
       }}>
-      <ScrollView
+      <CartCard />
+      <View
         style={{
-          backgroundColor: '#F8FBFF',
-          flex: 1,
-          margin: 16,
-          gap: 20,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: 10,
+          marginHorizontal: 16,
+          height: 70,
+          backgroundColor: 'white',
         }}>
-        {cartList.map((item: any) => (
-          <View
+        <Text
+          style={{
+            fontWeight: 'bold',
+            fontSize: 16,
+            color: '#FF7622',
+          }}>
+          Total Rp {totalPrice()}
+        </Text>
+        <Pressable onPress={() => handleCheckout()}>
+          <Text
             style={{
-              width: '100%',
-              height: '112px',
-              backgroundColor: 'white',
-              flexDirection: 'row',
-              padding: 12,
-              gap: 10,
-              elevation: 5,
-              borderRadius: 20,
-              marginVertical: 5,
+              width: 90,
+              backgroundColor: 'red',
+              padding: 10,
+              borderRadius: 10,
+              color: 'white',
+              textAlign: 'center',
+              fontSize: 16,
             }}>
-            <Image
-              source={{uri: `${item.image}`}}
-              style={{
-                width: 100,
-                height: 104,
-                backgroundColor: 'gray',
-                borderRadius: 10,
-              }}
-            />
-            <View
-              style={{
-                flexDirection: 'column',
-                width: 100,
-                gap: 10,
-              }}>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 16,
-                }}>
-                {item.product_name}
-              </Text>
-              <Text>Rp 5000</Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'column',
-                width: 100,
-                gap: 10,
-              }}>
-              <Text>{item.quantity}x</Text>
-              <Pressable style={{marginTop: 40}}>
-                <Text
-                  style={{
-                    width: 80,
-                    backgroundColor: '#FE554A',
-                    padding: 10,
-                    borderRadius: 10,
-                    color: 'white',
-                    textAlign: 'center',
-                  }}>
-                  Delete
-                </Text>
-              </Pressable>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
-      <View>
-        <Text>Checkout</Text>
+            Checkout
+          </Text>
+        </Pressable>
       </View>
     </View>
   );

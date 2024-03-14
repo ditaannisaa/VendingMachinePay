@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {useDispatch} from 'react-redux';
 import {addItem} from '../../redux/slice/cartSlice';
 
-const App = () => {
-  const [data, setData] = useState<Product[]>([]);
+const App = ({data, setData, searchResults}: any) => {
+  // const [data, setData] = useState<Product[]>([]);
   const dispatch = useDispatch();
 
   const productsData = () => {
@@ -24,42 +24,81 @@ const App = () => {
     dispatch(addItem(product));
   };
 
+  console.log(searchResults);
+
   return (
     <View style={styles.container}>
-      {data?.map(item => (
-        <View key={item.id} style={styles.item}>
-          <Image
-            source={{uri: `${item.image}`}}
-            style={{width: 122, height: 104}}
-          />
-          <View style={{flexDirection: 'row', gap: 17, alignItems: 'flex-end'}}>
-            <View>
-              <Text style={{fontWeight: 'bold', fontSize: 14}}>
-                {item.product_name}
-              </Text>
-              <Text>{item.price}</Text>
-              <Text>Stock: {item.stock}</Text>
+      {!(searchResults.length > 0)
+        ? data?.map(item => (
+            <View key={item.id} style={styles.item}>
+              <Image
+                source={{uri: `${item.image}`}}
+                style={{width: 122, height: 104}}
+              />
+              <View
+                style={{flexDirection: 'row', gap: 17, alignItems: 'flex-end'}}>
+                <View>
+                  <Text style={{fontWeight: 'bold', fontSize: 14}}>
+                    {item.product_name}
+                  </Text>
+                  <Text>{item.price}</Text>
+                  <Text>Stock: {item.stock}</Text>
+                </View>
+                <View>
+                  <Pressable onPress={() => handleAddCart(item)}>
+                    <Icon
+                      name="cart-plus"
+                      style={{
+                        fontSize: 25,
+                        backgroundColor: '#FF7622',
+                        width: 40,
+                        height: 40,
+                        padding: 5,
+                        borderRadius: 100,
+                        color: '#FFFFFF',
+                        textAlign: 'center',
+                      }}
+                    />
+                  </Pressable>
+                </View>
+              </View>
             </View>
-            <View>
-              <Pressable onPress={() => handleAddCart(item)}>
-                <Icon
-                  name="cart-plus"
-                  style={{
-                    fontSize: 25,
-                    backgroundColor: '#FF7622',
-                    width: 40,
-                    height: 40,
-                    padding: 5,
-                    borderRadius: 100,
-                    color: '#FFFFFF',
-                    textAlign: 'center',
-                  }}
-                />
-              </Pressable>
+          ))
+        : searchResults?.map(item => (
+            <View key={item.id} style={styles.item}>
+              <Image
+                source={{uri: `${item.image}`}}
+                style={{width: 122, height: 104}}
+              />
+              <View
+                style={{flexDirection: 'row', gap: 17, alignItems: 'flex-end'}}>
+                <View>
+                  <Text style={{fontWeight: 'bold', fontSize: 14}}>
+                    {item.product_name}
+                  </Text>
+                  <Text>{item.price}</Text>
+                  <Text>Stock: {item.stock}</Text>
+                </View>
+                <View>
+                  <Pressable onPress={() => handleAddCart(item)}>
+                    <Icon
+                      name="cart-plus"
+                      style={{
+                        fontSize: 25,
+                        backgroundColor: '#FF7622',
+                        width: 40,
+                        height: 40,
+                        padding: 5,
+                        borderRadius: 100,
+                        color: '#FFFFFF',
+                        textAlign: 'center',
+                      }}
+                    />
+                  </Pressable>
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
-      ))}
+          ))}
     </View>
   );
 };

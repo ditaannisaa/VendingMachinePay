@@ -24,9 +24,10 @@ export const ModalTopUp = () => {
   };
 
   const handleTopUp = (amount: number) => {
+    setModalVisible(false);
     dispatch(topUp({amount: selectedAmount}));
   };
-  console.log(selectedAmount);
+  // console.log(selectedAmount);
   return (
     <View style={styles.centeredView}>
       <Modal

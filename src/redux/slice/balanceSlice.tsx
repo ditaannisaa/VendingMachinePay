@@ -1,4 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {useDispatch} from 'react-redux';
+import {removeItem} from './cartSlice';
 
 const initialState = {
   balance: 0,
@@ -20,8 +22,18 @@ const balanceSlice = createSlice({
         console.error('Invalid amount:', action.payload.amount);
       }
     },
+    withdrawal(state, action) {
+      let balanceAmount = action.payload.total;
+      if (state.balance >= balanceAmount) {
+        // Pastikan amount tidak NaN
+        state.balance -= balanceAmount;
+        // console.log('New balance:', state.balance);
+      } else if (state.balance === 0) {
+        state.balance;
+      }
+    },
   },
 });
 
-export const {topUp} = balanceSlice.actions;
+export const {topUp, withdrawal} = balanceSlice.actions;
 export default balanceSlice.reducer;
