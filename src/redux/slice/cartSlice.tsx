@@ -18,8 +18,8 @@ const cartSlice = createSlice({
         let cart: Cart = {
           id: action.payload.id,
           quantity: 1,
-          product_name: action.payload.title,
-          image: action.payload.images,
+          product_name: action.payload.product_name,
+          image: action.payload.image,
           price: action.payload.price,
           stock: action.payload.stock,
         };
@@ -36,8 +36,8 @@ const cartSlice = createSlice({
           let _cart = {
             id: action.payload.id,
             quantity: 1,
-            product_name: action.payload.title,
-            image: action.payload.images,
+            product_name: action.payload.product_name,
+            image: action.payload.image,
             price: action.payload.price,
             stock: action.payload.stock,
           };

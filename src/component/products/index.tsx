@@ -2,9 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import {Product} from '../../types/productType';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useDispatch} from 'react-redux';
+import {addItem} from '../../redux/slice/cartSlice';
 
 const App = () => {
   const [data, setData] = useState<Product[]>([]);
+  const dispatch = useDispatch();
 
   const productsData = () => {
     fetch('https://api.npoint.io/30d162a298d5bb30b970')
@@ -16,6 +19,10 @@ const App = () => {
   useEffect(() => {
     productsData();
   }, []);
+
+  const handleAddCart = (product: Product) => {
+    dispatch(addItem(product));
+  };
 
   return (
     <View style={styles.container}>
@@ -34,7 +41,7 @@ const App = () => {
               <Text>Stock: {item.stock}</Text>
             </View>
             <View>
-              <Pressable>
+              <Pressable onPress={() => handleAddCart(item)}>
                 <Icon
                   name="cart-plus"
                   style={{
