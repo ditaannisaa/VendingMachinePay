@@ -1,13 +1,10 @@
 import React from 'react';
-import {ScrollView, Text, View, useColorScheme} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Image, Text, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 
 export default function Cart() {
-  const isDarkMode = useColorScheme() === 'dark';
+  const dispatch = useDispatch();
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
   return (
     <View
       style={{
@@ -16,7 +13,42 @@ export default function Cart() {
         margin: 16,
         gap: 20,
       }}>
-      <Text>Hello</Text>
+      <View
+        style={{
+          width: '100%',
+          height: '112px',
+          backgroundColor: 'yellow',
+          flexDirection: 'row',
+          padding: 12,
+          gap: 10,
+        }}>
+        <Image
+          // source={{uri: `${item.image}`}}
+          style={{
+            width: 100,
+            height: 104,
+            backgroundColor: 'gray',
+            borderRadius: 10,
+          }}
+        />
+        <View
+          style={{
+            flexDirection: 'row',
+            width: 100,
+          }}>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              fontSize: 14,
+            }}>
+            Biskuit
+          </Text>
+          <Text></Text>
+        </View>
+        <View>
+          <Text>Hello</Text>
+        </View>
+      </View>
     </View>
   );
 }

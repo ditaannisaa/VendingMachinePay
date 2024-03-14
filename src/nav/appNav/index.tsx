@@ -28,9 +28,9 @@ function AppNav() {
           tabBarLabel: 'Cart',
           headerTitleAlign: 'left',
           headerShown: true,
-          //   tabBarIcon: ({color, size}) => (
-          //     <Banknote color={color} size={size} />
-          //   ),
+          tabBarIcon: ({color, size}) => (
+            <Icon name="shopping-cart" color={color} size={size} />
+          ),
           tabBarInactiveTintColor: 'gray',
           tabBarActiveTintColor: '#FE554A',
         }}

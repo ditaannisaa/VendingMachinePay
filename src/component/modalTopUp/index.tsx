@@ -10,9 +10,20 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {moneyAmount} from '../../assets/data/dummy';
 
 export const ModalTopUp = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedAmount, setSelectedAmount] = useState(0);
+
+  const handleamount = (amountPrice: number) => {
+    setSelectedAmount(amountPrice);
+  };
+
+  // const isDiamondSelected = (money: number) => {
+  //   return selectedAmount === money;
+  // };
+  console.log(selectedAmount);
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -26,9 +37,62 @@ export const ModalTopUp = () => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>
-              Please insert your money into machine!
+              Please insert your money with these selected amount into the
+              machine!
             </Text>
-            <Text style={styles.modalText}>You can use this amount</Text>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 20,
+                  width: '100%',
+                }}>
+                {moneyAmount.slice(0, 3).map(amountItem => (
+                  <Pressable
+                    onPress={() => handleamount(amountItem.amount)}
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={[styles.modalText, styles.amountText]}>
+                      {amountItem.amount}
+                    </Text>
+                  </Pressable>
+                ))}
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 20,
+                  width: '100%',
+                }}>
+                {moneyAmount.slice(3, 5).map(amountItem => (
+                  <Pressable
+                    onPress={() => handleamount(amountItem.amount)}
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={[styles.modalText, styles.amountText]}>
+                      {amountItem.amount}
+                    </Text>
+                  </Pressable>
+                ))}
+              </View>
+              <Text style={styles.modalText}>Your top up amount</Text>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                }}>
+                Rp {selectedAmount}
+              </Text>
+            </View>
+
             <LottieView
               source={require('../../assets/moneypay.json')}
               style={{width: 150, height: 150}}
@@ -38,7 +102,7 @@ export const ModalTopUp = () => {
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={styles.textStyle}>Cancel</Text>
             </Pressable>
           </View>
         </View>
@@ -84,6 +148,8 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: '#2196F3',
+    borderRadius: 20,
+    padding: 10,
   },
   textStyle: {
     color: 'white',
@@ -93,5 +159,13 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+    padding: 5,
+  },
+  amountText: {
+    width: 70,
+    height: 30,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 1,
   },
 });

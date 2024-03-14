@@ -1,20 +1,11 @@
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StyleSheet, useColorScheme} from 'react-native';
 
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 import AppStack from './src/nav/appStack';
-import Cart from './src/screen/cart';
+import {Provider} from 'react-redux';
+import store from './src/redux/store';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -24,25 +15,11 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <NavigationContainer>
-      <AppStack/>
-      {/* <SafeAreaView style={backgroundStyle}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-        <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-            <Text>Hello</Text>
-        </View>
-    </ScrollView>
-      </SafeAreaView> */}
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <AppStack />
+      </NavigationContainer>
+    </Provider>
   );
 }
 

@@ -1,7 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {Cart, Product} from '../../types/productType';
 
-const initialState = {
-  isCartOpen: false,
+interface CartType {
+  cartItems: Cart[];
+}
+
+const initialState: CartType = {
   cartItems: [],
 };
 
@@ -9,18 +13,15 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    modalCart(state, action) {
-      state.isCartOpen = action.payload;
-    },
     addItem(state, action) {
       if (state.cartItems?.length == 0) {
-        let cart = {
+        let cart: Cart = {
           id: action.payload.id,
           quantity: 1,
-          title: action.payload.title,
-          images: action.payload.images,
+          product_name: action.payload.title,
+          image: action.payload.images,
           price: action.payload.price,
-          category: action.payload.category,
+          stock: action.payload.stock,
         };
         state.cartItems.push(cart);
       } else {
@@ -35,10 +36,10 @@ const cartSlice = createSlice({
           let _cart = {
             id: action.payload.id,
             quantity: 1,
-            title: action.payload.title,
-            images: action.payload.images,
+            product_name: action.payload.title,
+            image: action.payload.images,
             price: action.payload.price,
-            category: action.payload.category,
+            stock: action.payload.stock,
           };
           state.cartItems?.push(_cart);
         }
@@ -50,29 +51,8 @@ const cartSlice = createSlice({
         item => item.id !== action.payload,
       );
     },
-
-    incrementItem(state, action) {
-      state.cartItems = state.cartItems.map(item => {
-        if (item.id === action.payload) {
-          item.quantity++;
-        }
-        return item;
-      });
-    },
-
-    decrementItem(state, action) {
-      state.cartItems = state.cartItems
-        .map(item => {
-          if (item.id === action.payload) {
-            item.quantity--;
-          }
-          return item;
-        })
-        .filter(item => item.quantity !== 0);
-    },
   },
 });
 
-export const {modalCart, addItem, removeItem, incrementItem, decrementItem} =
-  cartSlice.actions;
+export const {addItem, removeItem} = cartSlice.actions;
 export default cartSlice.reducer;

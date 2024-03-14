@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     marginBottom: 16,
     paddingVertical: 25,
-    width: '151px', // Adjust as needed
+    width: '151px',
     height: '193px',
     gap: 8,
     elevation: 5,
