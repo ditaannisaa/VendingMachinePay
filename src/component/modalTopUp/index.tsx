@@ -11,18 +11,21 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {moneyAmount} from '../../assets/data/dummy';
+import {useDispatch} from 'react-redux';
+import {topUp} from '../../redux/slice/balanceSlice';
 
 export const ModalTopUp = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState(0);
+  const dispatch = useDispatch();
 
   const handleamount = (amountPrice: number) => {
     setSelectedAmount(amountPrice);
   };
 
-  // const isDiamondSelected = (money: number) => {
-  //   return selectedAmount === money;
-  // };
+  const handleTopUp = (amount: number) => {
+    dispatch(topUp({amount: selectedAmount}));
+  };
   console.log(selectedAmount);
   return (
     <View style={styles.centeredView}>
@@ -99,11 +102,27 @@ export const ModalTopUp = () => {
               autoPlay
               loop
             />
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Cancel</Text>
-            </Pressable>
+            <View
+              style={{
+                flexDirection: 'row',
+                gap: 20,
+                width: '100%',
+              }}>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.textStyle}>Cancel</Text>
+              </Pressable>
+              <Pressable
+                style={{
+                  backgroundColor: 'green',
+                  borderRadius: 20,
+                  padding: 10,
+                }}
+                onPress={() => handleTopUp(selectedAmount)}>
+                <Text style={styles.textStyle}>Top Up</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </Modal>
@@ -111,7 +130,6 @@ export const ModalTopUp = () => {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}>
         <Icon name="plus-circle" color="#FF7622" size={35} />
-        {/* <Text style={styles.textStyle}>Top Up</Text> */}
       </Pressable>
     </View>
   );

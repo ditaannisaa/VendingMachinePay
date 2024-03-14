@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, Pressable, Text, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 export default function Cart() {
@@ -17,7 +17,7 @@ export default function Cart() {
         style={{
           width: '100%',
           height: '112px',
-          backgroundColor: 'yellow',
+          // backgroundColor: 'yellow',
           flexDirection: 'row',
           padding: 12,
           gap: 10,
@@ -33,20 +33,39 @@ export default function Cart() {
         />
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: 'column',
             width: 100,
+            gap: 10,
           }}>
           <Text
             style={{
               fontWeight: 'bold',
-              fontSize: 14,
+              fontSize: 16,
             }}>
             Biskuit
           </Text>
-          <Text></Text>
+          <Text>Rp 5000</Text>
         </View>
-        <View>
-          <Text>Hello</Text>
+        <View
+          style={{
+            flexDirection: 'column',
+            width: 100,
+            gap: 10,
+          }}>
+          <Text>2x</Text>
+          <Pressable style={{marginTop: 40}}>
+            <Text
+              style={{
+                width: 80,
+                backgroundColor: '#FE554A',
+                padding: 10,
+                borderRadius: 10,
+                color: 'white',
+                textAlign: 'center',
+              }}>
+              Delete
+            </Text>
+          </Pressable>
         </View>
       </View>
     </View>
