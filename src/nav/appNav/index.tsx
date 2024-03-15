@@ -22,11 +22,15 @@ function AppNav() {
         }}
       />
       <Tab.Screen
-        name="Cart"
+        name="My Cart"
         component={Cart}
         options={{
           tabBarLabel: 'Cart',
           headerTitleAlign: 'left',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: '#FF7622',
+          },
           headerShown: true,
           tabBarIcon: ({color, size}) => (
             <Icon name="shopping-cart" color={color} size={size} />

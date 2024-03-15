@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Image, Text, TextInput, View} from 'react-native';
+import {Button, Image, Pressable, Text, TextInput, View} from 'react-native';
 
 export function OpeningPage({navigation}: any) {
   const [machineCodes] = useState({
@@ -58,17 +58,28 @@ export function OpeningPage({navigation}: any) {
         }}
         value={machineCodes.machineCode}
       />
-      <View
+
+      <Pressable
+        onPress={handleCode}
         style={{
-          width: 200,
-          height: 40,
-          backgroundColor: '#FF7622',
-          borderRadius: 20,
           justifyContent: 'center',
           alignSelf: 'center',
         }}>
-        <Button title="Buy something" color={'green'} onPress={handleCode} />
-      </View>
+        <Text
+          style={{
+            width: 200,
+            backgroundColor: 'green',
+            padding: 10,
+            borderRadius: 10,
+            color: 'white',
+            textAlign: 'center',
+            fontSize: 16,
+            fontWeight: 'bold',
+            margin: 10,
+          }}>
+          Let's Buy Something!
+        </Text>
+      </Pressable>
     </View>
   );
 }
