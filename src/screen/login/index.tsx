@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Image, Text, TextInput, View} from 'react-native';
+import {Button, Image, Pressable, Text, TextInput, View} from 'react-native';
 
 export function Login({navigation}: any) {
   const [login] = useState({
@@ -65,7 +65,26 @@ export function Login({navigation}: any) {
         secureTextEntry={true}
         value={login.password}
       />
-      <Button title="Login" color={'green'} onPress={handleLogin} />
+      <Pressable
+        onPress={handleLogin}
+        style={{
+          justifyContent: 'center',
+          alignSelf: 'center',
+        }}>
+        <Text
+          style={{
+            width: 90,
+            backgroundColor: 'green',
+            padding: 10,
+            borderRadius: 10,
+            color: 'white',
+            textAlign: 'center',
+            fontSize: 16,
+            fontWeight: 'bold',
+          }}>
+          Login
+        </Text>
+      </Pressable>
     </View>
   );
 }

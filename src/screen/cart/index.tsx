@@ -10,7 +10,7 @@ export default function Cart() {
   const balanceAmount = useSelector((state: any) => state?.balance?.balance);
   const cartList = useSelector((state: any) => state.cart?.cartItems);
   // console.log(cartList);
-  const [allTotal, setAllTotal] = useState(0);
+
   const totalPrice = () => {
     let total = 0;
     for (let i = 0; i < cartList.length; i++) {
@@ -59,7 +59,7 @@ export default function Cart() {
           <Text
             style={{
               width: 90,
-              backgroundColor: 'red',
+              backgroundColor: '#FF7622',
               padding: 10,
               borderRadius: 10,
               color: 'white',
